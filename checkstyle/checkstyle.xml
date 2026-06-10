@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+
+    <!-- File must end with newline -->
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- No tabs -->
+    <module name="FileTabCharacter"/>
+
+    <!-- Line length -->
+    <module name="LineLength">
+        <property name="max" value="90"/>
+        <property name="ignorePattern"
+                  value="^package.*|^import.*|http://|https://"/>
+    </module>
+
+    <module name="TreeWalker">
+
+        <!-- Imports -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- Naming conventions -->
+        <module name="TypeName"/>
+        <module name="MethodName"/>
+        <module name="ParameterName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="ConstantName"/>
+
+        <!-- Braces -->
+        <module name="NeedBraces"/>
+        <module name="LeftCurly">
+            <property name="option" value="eol"/>
+        </module>
+        <module name="RightCurly"/>
+
+        <!-- Whitespace -->
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+
+        <!-- Empty blocks -->
+        <module name="EmptyBlock"/>
+
+        <!-- Avoid magic numbers (soft) -->
+        <module name="MagicNumber">
+            <property name="ignoreNumbers" value="-1,0,1"/>
+            <property name="ignoreHashCodeMethod" value="true"/>
+            <property name="ignoreAnnotation" value="true"/>
+        </module>
+
+    </module>
+</module>

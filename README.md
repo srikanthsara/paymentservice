@@ -5,6 +5,10 @@ paymentservice
 ### Start Kafka
 ### Create Topics as menioned in below
 
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --delete --topic payment-success-topic
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --delete --topic payment-failed-topic
+docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --delete --topic order-created-topic
+
 docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic order-created-topic
 docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic payment-success-topic
 docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --create --topic payment-failed-topic
@@ -92,7 +96,8 @@ Response data
 ###Go to PaymentServices http://localhost:8765/paymentservice/swagger-ui/index.html
 ## see logs "Payment processed successfully",..so payment services succesful
 
-
+>psql -U postgres -p 5433
+>\c payment_db
 payment_db=# SELECT * FROM payment_transaction;
  amount |         created_at         | order_id | payment_id | customer_id | failure_reason | payment_provider | payment_status | payment_type |            transaction_id
 --------+----------------------------+----------+------------+-------------+----------------+------------------+----------------+--------------+--------------------------------------
@@ -100,3 +105,11 @@ payment_db=# SELECT * FROM payment_transaction;
    5682 | 2026-05-26 22:12:25.432245 |       12 |          2 | CUST1002    |                | GooglePay        | SUCCESS        | UPI          | f6901873-91b4-40dc-b878-eadf19666fa3
    5682 | 2026-05-26 22:58:35.648241 |       13 |          3 | CUST1003    |                | GooglePay        | SUCCESS        | UPI          | cc0f52b9-f24b-4968-939d-0d5ce5eca310
 (3 rows)
+
+
+\c order_db
+
+SELECT order_id,payment_status,order_status FROM order_master WHERE order_id = 22;
+
+
+docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic payment-success-topic 	--from-beginning

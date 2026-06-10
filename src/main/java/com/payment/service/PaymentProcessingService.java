@@ -6,12 +6,9 @@ import com.common.event.PaymentSuccessEvent;
 import com.payment.entity.PaymentTransaction;
 import com.payment.kafka.PaymentEventProducer;
 import com.payment.repository.PaymentTransactionRepository;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -44,9 +41,9 @@ public class PaymentProcessingService {
 
                             .amount(event.getTotalAmount())
 
-                            .paymentType("UPI")
+                            .paymentType(event.getPaymentType())
 
-                            .paymentProvider("GooglePay")
+                            .paymentProvider(event.getPaymentProvider())
 
                             .paymentStatus("SUCCESS")
 
@@ -119,10 +116,7 @@ public class PaymentProcessingService {
     }
 
     // MOCK GATEWAY
-    private boolean mockPaymentGateway(
-            OrderCreatedEvent event) {
-
-        return event.getTotalAmount()
-                .compareTo(BigDecimal.valueOf(10000)) < 0;
+    private boolean mockPaymentGateway(OrderCreatedEvent event) {
+        return true;
     }
 }
