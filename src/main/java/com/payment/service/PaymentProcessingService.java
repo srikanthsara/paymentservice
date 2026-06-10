@@ -20,7 +20,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentProcessingService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PaymentProcessingService.class);
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(PaymentProcessingService.class);
     private final PaymentTransactionRepository repository;
     private final PaymentEventProducer producer;
 
