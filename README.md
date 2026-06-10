@@ -113,3 +113,6 @@ SELECT order_id,payment_status,order_status FROM order_master WHERE order_id = 2
 
 
 docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic payment-success-topic 	--from-beginning
+
+###Sonar scan###
+mvn sonar:sonar "-Dsonar.host.url=http://localhost:9000" "-Dsonar.token=squ_ab420683f01090fa92c6c618ee78bd57a91e0ce7"
